@@ -9,8 +9,10 @@ Invoking the Lambda function asynchronously with AWS API Gateway, you need to us
 * [Amazon API Gateway](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_apigateway-readme.html)
 
 ### AWS Documentation Developer Guide
+* [Asynchronous invocation](https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html)
 * [Set up asynchronous invocation of the backend Lambda function](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-integration-async.html)
 * [Amazon API Gateway API request and response data mapping reference](https://docs.aws.amazon.com/apigateway/latest/developerguide/request-response-data-mappings.html)
+* [How can I invoke a Lambda function asynchronously from my Amazon API Gateway API?](https://repost.aws/knowledge-center/api-gateway-invoke-lambda)
 
 ### Useful commands
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
