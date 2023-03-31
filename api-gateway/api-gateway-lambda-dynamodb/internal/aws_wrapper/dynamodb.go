@@ -1,0 +1,62 @@
+package awswrapper
+
+import (
+	"context"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	"github.com/rmarasigan/aws-cdk-samples/api-gateway/api-gateway-lambda-dynamodb/api"
+	"github.com/rmarasigan/aws-cdk-samples/api-gateway/api-gateway-lambda-dynamodb/internal/utility"
+)
+
+const (
+	AWS_REGION = "us-east-1"
+)
+
+var (
+	dynamoClient *dynamodb.Client
+)
+
+// initDynamoClient initializes the DynamoDB Client from the
+// provided configuration.
+func initDynamoClient(ctx context.Context) {
+	if dynamoClient != nil {
+		return
+	}
+
+	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion(AWS_REGION))
+	if err != nil {
+		utility.Error(err, "DynamoClientError", "failed to load the default config")
+		return
+	}
+
+	dynamoClient = dynamodb.NewFromConfig(cfg)
+}
+
+// DynamoPutItem initializes the DynamoDB client and inserts the item into the DynamoDB Table.
+func DynamoPutItem(ctx context.Context, tablename string, coffee api.Coffee) error {
+	// Initialize the DynamoClient
+	initDynamoClient(ctx)
+
+	// Convert the record to map[string]types.AttributeValue
+	// that is to be used in the PutItemInput
+	value, err := attributevalue.MarshalMap(coffee)
+	if err != nil {
+		return err
+	}
+
+	var input = &dynamodb.PutItemInput{
+		Item:      value,
+		TableName: aws.String(tablename),
+	}
+
+	// Insert the item to the DynamoDB Table
+	_, err = dynamoClient.PutItem(ctx, input)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
