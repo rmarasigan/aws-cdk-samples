@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/rmarasigan/aws-cdk-samples/api-gateway/api-gateway-lambda-s3/internal/utility"
 )
 
