@@ -31,3 +31,8 @@ When no `--profile` parameter provided in the command, `default` profile will be
 ## API Gateway
 * [API Gateway Async → Lambda](api-gateway/api-gateway-async-lambda/README.md)
 * [API Gateway → Lambda → S3 Bucket](api-gateway/api-gateway-lambda-s3/README.md)
+* [API Gateway → Lambda → DynamoDB](api-gateway/api-gateway-lambda-dynamodb/README.md)
+* [API Gateway → Lambda → SQS → Lambda](api-gateway/api-gateway-lambda-sqs/README.md)
+
+## S3
+* [S3 Static Website hosting](s3/s3-website/README.md)
