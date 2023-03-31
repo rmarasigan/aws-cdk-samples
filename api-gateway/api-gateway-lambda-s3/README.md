@@ -55,18 +55,18 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 1. Install all the dependencies, bootstrap your project, and synthesized CloudFormation template.
   ```bash
   # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/api-gateway/api-gateway-async-lambda$ make init
+  dev@dev:~:aws-cdk-samples/api-gateway/api-gateway-lambda-s3$ make init
 
   # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/api-gateway/api-gateway-async-lambda$ make init profile=[profile_name]
+  dev@dev:~:aws-cdk-samples/api-gateway/api-gateway-lambda-s3$ make init profile=[profile_name]
   ```
 
 2. Deploy the project.
 
   ```bash
   # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/api-gateway/api-gateway-async-lambda$ make deploy
+  dev@dev:~:aws-cdk-samples/api-gateway/api-gateway-lambda-s3$ make deploy
 
   # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/api-gateway/api-gateway-async-lambda$ make deploy profile=[profile_name]
+  dev@dev:~:aws-cdk-samples/api-gateway/api-gateway-lambda-s3$ make deploy profile=[profile_name]
   ```
