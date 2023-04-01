@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { ApiGatewayLambdaSqsStack } from '../lib/api-gateway-lambda-sqs-stack';
+import { ApiGatewayLambdaSqsStack } from '../lib/stacks/api-gateway-lambda-sqs-stack';
 
 const app = new cdk.App();
 new ApiGatewayLambdaSqsStack(app, 'ApiGatewayLambdaSqsStack', {
