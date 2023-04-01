@@ -37,3 +37,4 @@ When no `--profile` parameter provided in the command, `default` profile will be
 ## S3
 * [S3 Static Website hosting](s3/s3-website/README.md)
 * [S3 Bucket → Lambda → DynamoDB](s3/s3-lambda-dynamodb/README.md)
+* [S3 Bucket → EventBridge Rule → Lambda](s3/s3-eventbridge-lambda/README.md)
