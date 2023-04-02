@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+  <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+  <title>
+    API CORS + API KEY
+  </title>
+</head>
+<body>
+  <script type = "text/javascript">
+    const API_KEY = 'API_GATEWAY_API_KEY';
+    let URL = "https://{api-id}.execute.api.{region}.amazonaws.com/prod/";
+
+    let data = {};
+    data.name = "Galão";
+    data.description = "Originating in Portugal, this hot coffee drink is closely related to the latte and cappuccino.";
+    data.ingredients = ["Espresso", "Foamed milk"];
+
+    // Set-up HTTP Request
+    const xhr = new XMLHttpRequest();
+
+    // Set-up listener to process completed requests
+    xhr.onload = function (){
+      // Process our return data
+      if (xhr.status == 200)
+      {
+        alert(`Request Successful`);
+      }
+    };
+
+    // Create POST request
+    xhr.open('POST', `${URL}`);
+
+    // Setting Request Header
+    xhr.setRequestHeader('x-api-key', API_KEY);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    // Send POST
+    xhr.send(JSON.stringify(data));
+  </script>
+</body>
+</html>
