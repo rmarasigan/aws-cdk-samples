@@ -49,18 +49,18 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 1. Install all the dependencies, bootstrap your project, and synthesized CloudFormation template.
   ```bash
   # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/s3/s3-lambda-dynamodb$ make init
+  dev@dev:~:aws-cdk-samples/s3/s3-sns$ make init
 
   # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/s3/s3-lambda-dynamodb$ make init profile=[profile_name]
+  dev@dev:~:aws-cdk-samples/s3/s3-sns$ make init profile=[profile_name]
   ```
 
 2. Deploy the project.
 
   ```bash
   # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/s3/s3-lambda-dynamodb$ make deploy
+  dev@dev:~:aws-cdk-samples/s3/s3-sns$ make deploy
 
   # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/s3/s3-lambda-dynamodb$ make deploy profile=[profile_name]
+  dev@dev:~:aws-cdk-samples/s3/s3-sns$ make deploy profile=[profile_name]
   ```
