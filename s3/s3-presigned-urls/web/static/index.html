@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset = "UTF-8">
+   <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+   <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form id = "fileForm" enctype = "multipart/form-data">
+    <div style = "text-align: center">
+      <input type = "file" id = "fileAsset" ref = "file" />
+      <input type = "submit">
+    </div>
+  </form>  
+</body>
+<script>
+  const form = document.getElementById('fileForm'),
+        file = document.getElementById('fileAsset'),
+        endpoint = "API GATEWAY ENDPOINT";
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    
+    // Check if there is a file uploaded
+    if (file.files.length > 0) {
+      let key = file.files[0].name,
+          size = file.files[0].size,
+          type = file.files[0].type,
+          reader = new FileReader();
+      
+      reader.onload = function() {
+        const content = reader.result;
+
+        let array = [],
+            binary = atob(content.split(',')[1]);
+        
+        for (var i = 0; i < binary.length; i++)
+        {
+          array.push(binary.charCodeAt(i));
+        }
+
+        const xhr = new XMLHttpRequest();
+        let blob = new Blob([ new Uint8Array(array) ], { type: type });
+
+        xhr.onload = function () {
+          if (xhr.status == 200)
+          {
+            alert("Will start uploading the file...");
+
+            // Upload the file to the generated signed
+            // URL.
+            let response  = JSON.parse(xhr.response);
+            const result = fetch(response.url, {
+              method: 'PUT',
+              body: blob
+            }).catch(error => {
+              console.error("Upload error: ", error);
+            });
+          }
+        }
+
+        xhr.onerror = function () {
+          console.error("Presigned Generation Response: ", xhr.response);
+          console.error("Presigned Generation ResponseURL: ", xhr.responseURL);
+          console.error("Presigned Generation StatusText: ", xhr.statusText);
+        }
+
+        let url = `${endpoint}?key=${key}&content_type=${type}`;
+        xhr.open('PUT', url);
+        xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+        xhr.send(blob);
+      }
+
+      reader.readAsDataURL(file.files[0]);
+    }
+  });
+</script>
+</html>
