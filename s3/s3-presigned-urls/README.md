@@ -2,9 +2,14 @@
 
 ![API Gateway to S3](assets/img/s3-presigned-urls.png)
 
-This is a two-step process for your front-end application. In the first step of the process, the API Gateway endpoint invokes the Lambda Function to make a signed URL request. Once the frontend application receives the API Gateway endpoint response, it will then send a request to the signed URL. Uploading directly to an S3 bucket, you must first request a signed URL from the Amazon S3 service. The request contains the ***key*** of the uploaded object and the ***content type***. You can then upload directly using the signed URL.
+This is a two-step process for your front-end application. In the first step of the process, the API Gateway endpoint invokes the Lambda Function to make a signed URL request. Once the frontend application receives the API Gateway endpoint response, it will then send a request to the signed URL. Uploading directly to an S3 bucket, you must first request a signed URL from the Amazon S3 service. The request contains the ***key*** of the uploaded object, the ***content type***, and ***action*** that is equal to *upload*. You can then upload directly using the signed URL. To make the S3 object downloadable, you must change the response **Content-Disposition** header value to *attachment*.
 
-**NOTE**: When uploading objects to S3 from a web application, the S3 must be configured for CORS (Cross-Origin Resource Sharing). The frontend application uses binary data to upload directly to the signed URL.
+You can test the following by using the provided HTML file that is in the [web/static](web/static/index.html) directory. After deploying the stack, remember to update the API Gateway Endpoint on the said HTML file.
+
+**NOTE**:
+* You can use either the `$default` or `prod` stage for the API Gateway endpoint.
+* The S3 Bucket and its objects are configured to be deleted once the stack is destroyed/deleted.
+* When uploading objects to S3 from a web application, the S3 must be configured for CORS (Cross-Origin Resource Sharing). The frontend application uses binary data to upload directly to the signed URL.
 
 ```javascript
 let array = [],
@@ -25,15 +30,12 @@ fetch(response.url, {
 });
 ```
 
-You can test the following by using the provided HTML file that is in the [web/static](web/static/index.html) directory. After deploying the stack, remember to update the API Gateway Endpoint on the said HTML file.
-
 #### CORS Configuration
 * **Allowed Headers**: '*'
 * **Allowed Origins**: '*'
 * **Allowed Methods**: GET, PUT, HEAD
 
 The preceding policy allows all headers and origins - it is recommended that you use a more restrictive policy for production workloads.
-
 
 ### AWS CDK API / Developer Reference
 * [Amazon S3](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3-readme.html)
@@ -49,6 +51,7 @@ The preceding policy allows all headers and origins - it is recommended that you
 
 ### AWS Documentation Developer Guide
 * [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html)
+* [Downloading an object](https://docs.aws.amazon.com/AmazonS3/latest/userguide/download-objects.html)
 * [Bucket restrictions and limitations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/BucketRestrictions.html)
 * [Using cross-origin resource sharing (CORS)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/cors.html)
 * [Uploading to Amazon S3 directly from a web or mobile application](https://aws.amazon.com/blogs/compute/uploading-to-amazon-s3-directly-from-a-web-or-mobile-application/)

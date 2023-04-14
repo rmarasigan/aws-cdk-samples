@@ -7,19 +7,76 @@
   <title>Document</title>
 </head>
 <body>
-  <form id = "fileForm" enctype = "multipart/form-data">
+  <form id = "uploadForm" enctype = "multipart/form-data">
     <div style = "text-align: center">
+      <h1> Upload Object </h1>
       <input type = "file" id = "fileAsset" ref = "file" />
       <input type = "submit">
     </div>
-  </form>  
+  </form>
+
+  <form id = "getObject">
+    <div style = "text-align: center; margin-top: 5%">
+      <h1> Get Object </h1>
+      <input type = "text" id = "objectKey" placeholder = "Enter object key" />
+      <input type = "submit">
+    </div>
+  </form>
 </body>
 <script>
-  const form = document.getElementById('fileForm'),
+  const uploadForm = document.getElementById('uploadForm'),
         file = document.getElementById('fileAsset'),
+        getObjectForm = document.getElementById('getObject'),
+        objectKey = document.getElementById('objectKey'),
         endpoint = "API GATEWAY ENDPOINT";
 
-  form.addEventListener('submit', (event) => {
+
+  // Get the object and download
+  getObjectForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    let key = objectKey.value,
+        anchor = document.querySelector("#download-attachment");
+
+    // Check if the object key is not empty
+    if (key != "") {   
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        if (xhr.status == 200)
+        {
+          let response = JSON.parse(xhr.response),
+              link = document.createElement('a');
+
+          // Check if the anchor element already exist or not
+          if (anchor) {
+            anchor.remove();
+          }
+
+          link.innerHTML = key;
+          link.href = response.url;
+          link.setAttribute('id', 'download-attachment')
+          link.setAttribute('download', '');
+
+          objectKey.parentElement.append(link);
+        }
+      }
+
+      xhr.onerror = function () {
+        console.error("Presigned Generation Response: ", xhr.response);
+        console.error("Presigned Generation ResponseURL: ", xhr.responseURL);
+        console.error("Presigned Generation StatusText: ", xhr.statusText);
+      }
+
+      let url = `${endpoint}?key=${key}`;
+      xhr.open('GET', url);
+      xhr.send();
+
+    } else {
+      alert("Please enter the object key");
+    }
+  });
+
+  // Upload the object to the S3 Bucket
+  uploadForm.addEventListener('submit', (event) => {
     event.preventDefault();
     
     // Check if there is a file uploaded
@@ -51,6 +108,7 @@
             // Upload the file to the generated signed
             // URL.
             let response  = JSON.parse(xhr.response);
+
             const result = fetch(response.url, {
               method: 'PUT',
               body: blob
@@ -66,7 +124,7 @@
           console.error("Presigned Generation StatusText: ", xhr.statusText);
         }
 
-        let url = `${endpoint}?key=${key}&content_type=${type}`;
+        let url = `${endpoint}?key=${key}&content_type=${type}&action=upload`;
         xhr.open('PUT', url);
         xhr.setRequestHeader('Content-Type', 'multipart/form-data');
         xhr.send(blob);

@@ -21,6 +21,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		bucket      = os.Getenv("BUCKET_NAME")
 		response    = new(awswrapper.Response)
 		key         = request.QueryStringParameters["key"]
+		action      = request.QueryStringParameters["action"]
 		contentType = request.QueryStringParameters["content_type"]
 	)
 
@@ -32,7 +33,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		return api.InternalServerError()
 	}
 
-	// Check if the parameters are set
+	// Check if the key parameter is set
 	if key == "" {
 		err := errors.New("'key' parameter is not set")
 		utility.Error(err, "APIError", "'key' parameter is missing")
@@ -40,22 +41,37 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		return api.BadRequest(err)
 	}
 
-	if contentType == "" {
-		err := errors.New("'content_type' parameter is not set")
-		utility.Error(err, "APIError", "'content_type' parameter is missing")
+	switch action {
+	case "upload":
+		// Check if the content_type parameter is set
+		if contentType == "" {
+			err := errors.New("'content_type' parameter is not set")
+			utility.Error(err, "APIError", "'content_type' parameter is missing")
 
-		return api.BadRequest(err)
+			return api.BadRequest(err)
+		}
+
+		// Get presigned HTTP Request
+		presign, err := awswrapper.S3PresignPutObject(ctx, bucket, key, contentType)
+		if err != nil {
+			utility.Error(err, "S3Error", "Failed to get the presigned URL for PUT")
+			return api.InternalServerError()
+		}
+
+		response.URL = &presign.URL
+		response.Method = &presign.Method
+
+	default:
+		// Get presigned HTTP Request
+		presign, err := awswrapper.S3PresignGetObject(ctx, bucket, key)
+		if err != nil {
+			utility.Error(err, "S3Error", "Failed to get the presigned URL for GET")
+			return api.InternalServerError()
+		}
+
+		response.URL = &presign.URL
+		response.Method = &presign.Method
 	}
-
-	// Get presigned HTTP Request
-	presign, err := awswrapper.S3PresignPutObject(ctx, bucket, key, contentType)
-	if err != nil {
-		utility.Error(err, "S3Error", "Failed to get the presigned URL")
-		return api.InternalServerError()
-	}
-
-	response.URL = &presign.URL
-	response.Method = &presign.Method
 
 	return api.OK(response)
 }

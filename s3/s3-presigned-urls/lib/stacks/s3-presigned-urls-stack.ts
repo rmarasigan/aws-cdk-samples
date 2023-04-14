@@ -22,7 +22,7 @@ export class S3PresignedUrlsStack extends cdk.Stack {
       versioned: true,
       autoDeleteObjects: true,
       publicReadAccess: false,
-      removalPolicy: cdk.RemovalPolicy.RETAIN,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
       bucketName: `presigned-bucket-${this.region}`,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL
     });
@@ -39,7 +39,7 @@ export class S3PresignedUrlsStack extends cdk.Stack {
       publicReadAccess: true,
       autoDeleteObjects: true,
       websiteIndexDocument: 'index.html',
-      removalPolicy: cdk.RemovalPolicy.RETAIN
+      removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
     new s3_deployment.BucketDeployment(this, `static-web-app`, {
@@ -69,7 +69,7 @@ export class S3PresignedUrlsStack extends cdk.Stack {
       corsPreflight: {
         allowHeaders: [ '*' ],
         allowOrigins: [ '*' ],
-        allowMethods: [ apigwv2.CorsHttpMethod.OPTIONS, apigwv2.CorsHttpMethod.GET, apigwv2.CorsHttpMethod.POST, apigwv2.CorsHttpMethod.PUT ]
+        allowMethods: [ apigwv2.CorsHttpMethod.OPTIONS, apigwv2.CorsHttpMethod.GET, apigwv2.CorsHttpMethod.PUT ]
       }
     });
 
@@ -81,7 +81,7 @@ export class S3PresignedUrlsStack extends cdk.Stack {
 
     api.addRoutes({
       path: '/{proxy+}',
-      methods: [ apigwv2.HttpMethod.OPTIONS, apigwv2.HttpMethod.POST, apigwv2.HttpMethod.PUT ],
+      methods: [ apigwv2.HttpMethod.OPTIONS, apigwv2.HttpMethod.GET, apigwv2.HttpMethod.PUT ],
       integration: new apigwv2_integration.HttpLambdaIntegration('http-lambda-integration', getPresignedURL)
     });
   }

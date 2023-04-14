@@ -65,3 +65,28 @@ func S3PresignPutObject(ctx context.Context, bucket, key, contentType string) (*
 
 	return response, nil
 }
+
+// S3PresignGetObject initializes the S3 presgin client and generate the
+// a presigned HTTP Request.
+func S3PresignGetObject(ctx context.Context, bucket, key string) (*v4.PresignedHTTPRequest, error) {
+	// Initialize the S3PresignClient
+	initS3PresignClient(ctx)
+
+	var input = &s3.GetObjectInput{
+		Bucket:                     aws.String(bucket),
+		Key:                        aws.String(key),
+		ResponseContentDisposition: aws.String("attachment"),
+	}
+
+	var options = func(opts *s3.PresignOptions) {
+		opts.Expires = time.Duration(300 * int64(time.Second))
+	}
+
+	// Generate a presigned HTTP request
+	response, err := presignClient.PresignGetObject(ctx, input, options)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

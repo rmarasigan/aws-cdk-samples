@@ -40,3 +40,4 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [S3 Bucket → Lambda → DynamoDB](s3/s3-lambda-dynamodb/README.md)
 * [S3 Bucket → EventBridge Rule → Lambda](s3/s3-eventbridge-lambda/README.md)
 * [S3 Bucket → SNS → Email](s3/s3-sns/README.md)
+* [S3 Presigned URLs](s3/s3-presigned-urls/README.md)

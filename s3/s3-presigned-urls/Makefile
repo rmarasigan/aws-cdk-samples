@@ -6,7 +6,7 @@ GO_COMPILE:=GOOS=linux GOARCH=amd64 go build
 .SILENT:
 init:
 	echo "ℹ️  INITIALIZING PROJECT..."
-	npm install
+	npm install --force
 	go mod tidy
 
 ifdef profile
