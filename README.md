@@ -43,3 +43,4 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [S3 Presigned URLs](s3/s3-presigned-urls/README.md)
 
 ## [Step Functions](step-functions/)
+* [Step Function with Lambda](step-functions/step-functions-lambda/README.md)
