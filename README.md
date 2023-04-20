@@ -28,12 +28,21 @@ dev@dev:~$ aws s3 ls --profile profile_name
 
 When no `--profile` parameter provided in the command, `default` profile will be used.
 
+### AWS SDK and CDK Defaults
+* **AWS Region**: `us-east-1`
+  * You can change the default value of the AWS region by updating the `AWS_REGION` in one of the files inside the ***aws_wrapper***
+* **Stack Account and Region**: `process.env.CDK_DEFAULT_ACCOUNT/REGION`
+  * You can change the default value in the TS file inside the ***bin*** folder
+
 ## [API Gateway](api-gateway/)
 * [API Gateway Async → Lambda](api-gateway/api-gateway-async-lambda/README.md)
 * [API Gateway → Lambda → S3 Bucket](api-gateway/api-gateway-lambda-s3/README.md)
 * [API Gateway → Lambda → DynamoDB](api-gateway/api-gateway-lambda-dynamodb/README.md)
 * [API Gateway → Lambda → SQS → Lambda](api-gateway/api-gateway-lambda-sqs/README.md)
 * [API Gateway CORS + API Key → Lambda](api-gateway/api-gateway-cors-lambda/README.md)
+
+## CloudWatch
+* [CloudWatch Subscription → Lambda](cloudwatch/cloudwatch-subscription-lambda/README.md)
 
 ## [S3](s3/)
 * [S3 Static Website hosting](s3/s3-website/README.md)
@@ -44,3 +53,4 @@ When no `--profile` parameter provided in the command, `default` profile will be
 
 ## [Step Functions](step-functions/)
 * [Step Function with Lambda](step-functions/step-functions-lambda/README.md)
+* [Step Function with CloudWatch](step-functions/step-functions-cloudwatch/README.md)
