@@ -11,6 +11,8 @@ export class S3PresignedUrlsStack extends cdk.Stack {
     super(scope, id, props);
 
     // ********** S3 Bucket ********** //
+    // 1. Create a Bucket and configure it with CORS
+    // to allow access to the bucket
     const bucket = new s3.Bucket(this, `presigned-bucket-${this.region}`, {
       cors: [
         {
@@ -27,6 +29,8 @@ export class S3PresignedUrlsStack extends cdk.Stack {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL
     });
 
+    // 2. Create a Bucket that will contain the HTML index
+    // of the frontend
     const app_bucket = new s3.Bucket(this, `static-web-${this.region}`, {
       bucketName: `static-web-${this.region}`,
       cors: [
@@ -42,12 +46,15 @@ export class S3PresignedUrlsStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
+    // 3. Deploy the bucket with the frontend assets
     new s3_deployment.BucketDeployment(this, `static-web-app`, {
       destinationBucket: app_bucket,
       sources: [ s3_deployment.Source.asset('web/static') ],
     });
 
     // ********** Lambda Function ********** //
+    // 1. Create a Lambda function that will have access to
+    // the S3 Bucket
     const getPresignedURL = new lambda.Function(this, 'getPresignedURL', {
       memorySize: 1024,
       retryAttempts: 2,
@@ -64,6 +71,8 @@ export class S3PresignedUrlsStack extends cdk.Stack {
     bucket.grantReadWrite(getPresignedURL);
 
     // ********** API Gateway ********** //
+    // 1. Create an HTTP API with CORS, deployment stage,
+    // and routes configured
     const api = new apigwv2.HttpApi(this, 'http-api', {
       apiName: 'http-api',
       corsPreflight: {

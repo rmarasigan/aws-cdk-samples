@@ -10,6 +10,8 @@ export class S3EventbridgeLambdaStack extends cdk.Stack {
     super(scope, id, props);
 
     // ********** S3 Bucket ********** //
+    // 1. Create a Bucket and enable the
+    // EventBridge
     new s3.Bucket(this, `order-data-${this.region}`, {
       publicReadAccess: false,
       eventBridgeEnabled: true,
@@ -19,6 +21,8 @@ export class S3EventbridgeLambdaStack extends cdk.Stack {
     });
 
     // ********** Lambda Function ********** //
+    // 1. Create a Lambda function that will process
+    // the event from the EventBridge
     const lambdaFn = new lambda.Function(this, 'lambdaFn', {
       memorySize: 1024,
       retryAttempts: 2,
@@ -31,6 +35,8 @@ export class S3EventbridgeLambdaStack extends cdk.Stack {
     });
 
     // ********** EventBridge Rule ********** //
+    // 1. Create an EventBridge Rule for every event
+    // coming from S3, it will trigger the Lambda function
     const s3BucketEventRule = new eventbridge.Rule(this, 's3-bucket-event-rule', {
       enabled: true,
       ruleName: 's3-bucket-event-rule',

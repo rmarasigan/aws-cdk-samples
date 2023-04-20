@@ -54,9 +54,9 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 	}
 
 	// Start the Step Function State Machine and send the data as the input
-	sFnError := awswrapper.SFnStartExecution(ctx, STATE_MACHINE_ARN, string(data))
+	err = awswrapper.SFnStartExecution(ctx, STATE_MACHINE_ARN, string(data))
 	if err != nil {
-		utility.Error(sFnError, "SFnError", "Failed to start the step function",
+		utility.Error(err, "SFnError", "Failed to start the step function",
 			utility.KVP{Key: "state_machine", Value: STATE_MACHINE_ARN}, utility.KVP{Key: "data", Value: string(data)})
 
 		return api.InternalServerError()

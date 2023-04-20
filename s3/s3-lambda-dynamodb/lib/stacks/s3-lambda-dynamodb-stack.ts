@@ -10,6 +10,7 @@ export class S3LambdaDynamodbStack extends cdk.Stack {
     super(scope, id, props);
 
     // ********** S3 Bucket ********** //
+    // 1. Create an S3 Bucket
     const bucket = new s3.Bucket(this, `item-data-${this.region}`, {
       publicReadAccess: false,
       bucketName: `item-data-${this.region}`,
@@ -18,6 +19,8 @@ export class S3LambdaDynamodbStack extends cdk.Stack {
     });
 
     // ********** DynamoDB Table ********** //
+    // 1. Create a DynamoDB Table that will contain
+    // the processed information
     const table = new dynamodb.Table(this, 'data-table', {
       tableName: 'data-table',
       removalPolicy: cdk.RemovalPolicy.RETAIN,
@@ -33,6 +36,8 @@ export class S3LambdaDynamodbStack extends cdk.Stack {
     });
 
     // ********** Lambda Function ********** //
+    // 1. Create a Lambda function that will process
+    // each object-created event from the S3 Bucket
     const lambdaFn = new lambda.Function(this, 'lambdaFn', {
       memorySize: 1024,
       retryAttempts: 2,

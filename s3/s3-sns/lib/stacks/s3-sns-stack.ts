@@ -10,6 +10,7 @@ export class S3SnsStack extends cdk.Stack {
     super(scope, id, props);
 
     // ********** S3 Bucket ********** //
+    // 1. Create an S3 Bucket
     const bucket = new s3.Bucket(this, `order-data-${this.region}`, {
       publicReadAccess: false,
       bucketName: `order-data-${this.region}`,
@@ -18,15 +19,18 @@ export class S3SnsStack extends cdk.Stack {
     });
 
     // ********** SNS ********** //
+    // 1. Create an SNS Topic and add an object removal
+    // event notification to the Bucket and send it
+    // via email notification
     const topic = new sns.Topic(this, 's3-bucket-events', {
       topicName: 's3-bucket-events',
       displayName: 'S3 Bucket Object Events'
     });
 
-    // Set SNS as the Event Destination
+    // 2. Set SNS as the Event Destination
     bucket.addEventNotification(s3.EventType.OBJECT_REMOVED, new s3_notification.SnsDestination(topic));
 
-    // Subscribe an email address to SNS topic
+    // 3. Subscribe an email address to SNS topic
     // The email subscription require confirmation by visiting the link sent to the email address.
     topic.addSubscription(new sns_subscription.EmailSubscription('your_email@gmail.com'));
   }

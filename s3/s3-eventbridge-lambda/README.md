@@ -69,7 +69,6 @@ Invoking the Lambda Function with EventBridge Rule if there is any event(s) rece
 }
 ```
 
-
 ### AWS CDK API / Developer Reference
 * [Amazon S3](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3-readme.html)
 * [AWS Lambda](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html)

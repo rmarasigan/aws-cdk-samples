@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { StepFunctionsLambdaStack } from '../lib/step-functions-lambda-stack';
+import { StepFunctionsLambdaStack } from '../lib/stacks/step-functions-lambda-stack';
 
 const app = new cdk.App();
 new StepFunctionsLambdaStack(app, 'StepFunctionsLambdaStack', {

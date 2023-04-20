@@ -84,3 +84,4 @@ When the API received an incoming request, it will validate if the required fiel
 
   # With "profile" parameter
   dev@dev:~:aws-cdk-samples/step-functions/step-functions-lambda$ make deploy profile=[profile_name]
+  ```
