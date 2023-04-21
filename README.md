@@ -41,7 +41,7 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [API Gateway → Lambda → SQS → Lambda](api-gateway/api-gateway-lambda-sqs/README.md)
 * [API Gateway CORS + API Key → Lambda](api-gateway/api-gateway-cors-lambda/README.md)
 
-## CloudWatch
+## [CloudWatch](cloudwatch/)
 * [CloudWatch Subscription → Lambda](cloudwatch/cloudwatch-subscription-lambda/README.md)
 
 ## [S3](s3/)
