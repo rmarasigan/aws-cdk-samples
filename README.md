@@ -44,6 +44,9 @@ When no `--profile` parameter provided in the command, `default` profile will be
 ## [CloudWatch](cloudwatch/)
 * [CloudWatch Subscription → Lambda](cloudwatch/cloudwatch-subscription-lambda/README.md)
 
+## [Lambda](lambda/)
+* [Lambda → DynamoDB](lambda/lambda-dynamodb/README.md)
+
 ## [S3](s3/)
 * [S3 Static Website hosting](s3/s3-website/README.md)
 * [S3 Bucket → Lambda → DynamoDB](s3/s3-lambda-dynamodb/README.md)
