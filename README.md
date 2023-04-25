@@ -46,6 +46,7 @@ When no `--profile` parameter provided in the command, `default` profile will be
 
 ## [Lambda](lambda/)
 * [Lambda → DynamoDB](lambda/lambda-dynamodb/README.md)
+* [Lambda → Secrets Manager](lambda/lambda-secretsmanager/README.md)
 
 ## [S3](s3/)
 * [S3 Static Website hosting](s3/s3-website/README.md)
