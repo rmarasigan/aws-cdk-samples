@@ -36,28 +36,29 @@ When no `--profile` parameter provided in the command, `default` profile will be
 
 # Table of Contents
 
-## [API Gateway](api-gateway/)
+### [API Gateway](api-gateway/)
 * [API Gateway Async → Lambda](api-gateway/api-gateway-async-lambda/README.md)
 * [API Gateway CORS + API Key → Lambda](api-gateway/api-gateway-cors-lambda/README.md)
 * [API Gateway → Lambda → DynamoDB](api-gateway/api-gateway-lambda-dynamodb/README.md)
 * [API Gateway → Lambda → S3 Bucket](api-gateway/api-gateway-lambda-s3/README.md)
 * [API Gateway → Lambda → SQS → Lambda](api-gateway/api-gateway-lambda-sqs/README.md)
 
-## [CloudWatch](cloudwatch/)
+### [CloudWatch](cloudwatch/)
 * [CloudWatch Subscription → Lambda](cloudwatch/cloudwatch-subscription-lambda/README.md)
 
-## [Lambda](lambda/)
+### [Lambda](lambda/)
 * [Lambda → DynamoDB](lambda/lambda-dynamodb/README.md)
 * [Lambda → S3](lambda/lambda-s3/README.md)
 * [Lambda → Secrets Manager](lambda/lambda-secretsmanager/README.md)
+* [Lambda → SQS](lambda/lambda-sqs/README.md)
 
-## [S3](s3/)
+### [S3](s3/)
 * [S3 Bucket → EventBridge Rule → Lambda](s3/s3-eventbridge-lambda/README.md)
 * [S3 Bucket → Lambda → DynamoDB](s3/s3-lambda-dynamodb/README.md)
 * [S3 Bucket → SNS → Email](s3/s3-sns/README.md)
 * [S3 Presigned URLs](s3/s3-presigned-urls/README.md)
 * [S3 Static Website hosting](s3/s3-website/README.md)
 
-## [Step Functions](step-functions/)
+### [Step Functions](step-functions/)
 * [Step Function with CloudWatch](step-functions/step-functions-cloudwatch/README.md)
 * [Step Function with Lambda](step-functions/step-functions-lambda/README.md)
