@@ -16,11 +16,15 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives Amazon S3 event record data as an input and
+// retrieves the object information that is going to be inserted into the
+// DynamoDB table.
 func handler(ctx context.Context, events events.S3Event) error {
 	var (
 		tablename = os.Getenv("TABLE_NAME")
 	)
 
+	// Check if the DynamoDB Table is configured
 	if tablename == "" {
 		err := errors.New("DynamoDB TABLE_NAME environment variable is not set")
 		utility.Error(err, "EnvError", "DynamoDB TABLE_NAME is not configured on the environment")
@@ -48,7 +52,8 @@ func handler(ctx context.Context, events events.S3Event) error {
 		err = api.UnmarshalJSON(data, item)
 		if err != nil {
 			utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data",
-				utility.KVP{Key: "bucket", Value: bucket}, utility.KVP{Key: "key", Value: key})
+				utility.KVP{Key: "bucket", Value: bucket}, utility.KVP{Key: "key", Value: key},
+				utility.KVP{Key: "data", Value: data})
 
 			return err
 		}

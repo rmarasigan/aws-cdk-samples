@@ -17,6 +17,9 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives the Amazon API Gateway event record data as input,
+// validates the request body, and sends the data that will trigger the second
+// Lambda function.
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	var (
 		body              = request.Body

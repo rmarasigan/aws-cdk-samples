@@ -15,12 +15,15 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function once triggered, will create a new order
+// information, and  insert the record into the DynamoDB Table.
 func handler(ctx context.Context) error {
 	var (
 		order     = new(schema.Order)
 		tablename = os.Getenv("TABLE_NAME")
 	)
 
+	// Check if the DynamoDB Table is configured
 	if tablename == "" {
 		err := errors.New("DynamoDB TABLE_NAME environment variable is not set")
 		utility.Error(err, "EnvError", "DynamoDB TABLE_NAME is not configured on the environment")

@@ -18,7 +18,7 @@ func (Status) Processed() Status {
 type Item struct {
 	ID    string  `dynamodbav:"id"`
 	Name  string  `dynamodbav:"name"`
-	Price float64 `dynamodb:"price"`
+	Price float64 `dynamodbav:"price"`
 }
 
 type Order struct {

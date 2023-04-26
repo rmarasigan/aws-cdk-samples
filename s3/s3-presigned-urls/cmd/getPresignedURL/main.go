@@ -16,6 +16,10 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives the Amazon API Gateway event record data as input
+// and returns a response body with 200 OK HTTP Status. The API response must
+// include the "Access-Control-Allow-Origin", "Access-Control-Allow-Methods" and
+// "Access-Control-Allow-Headers" headers.
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	var (
 		bucket      = os.Getenv("BUCKET_NAME")
@@ -46,7 +50,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		// Check if the content_type parameter is set
 		if contentType == "" {
 			err := errors.New("'content_type' parameter is not set")
-			utility.Error(err, "APIError", "'content_type' parameter is missing")
+			utility.Error(err, "APIError", "'content_type' parameter is missing", utility.KVP{Key: "key", Value: key})
 
 			return api.BadRequest(err)
 		}
@@ -54,7 +58,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		// Get presigned HTTP Request
 		presign, err := awswrapper.S3PresignPutObject(ctx, bucket, key, contentType)
 		if err != nil {
-			utility.Error(err, "S3Error", "Failed to get the presigned URL for PUT")
+			utility.Error(err, "S3Error", "Failed to get the presigned URL for PUT", utility.KVP{Key: "key", Value: key})
 			return api.InternalServerError()
 		}
 
@@ -65,7 +69,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		// Get presigned HTTP Request
 		presign, err := awswrapper.S3PresignGetObject(ctx, bucket, key)
 		if err != nil {
-			utility.Error(err, "S3Error", "Failed to get the presigned URL for GET")
+			utility.Error(err, "S3Error", "Failed to get the presigned URL for GET", utility.KVP{Key: "key", Value: key})
 			return api.InternalServerError()
 		}
 

@@ -14,6 +14,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function will be triggered by the AWS Step Function State
+// Machine and will write the event into the CloudWatch Logs.
 func handler(ctx context.Context, event json.RawMessage) error {
 	var (
 		transaction = new(models.Transaction)

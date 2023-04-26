@@ -12,6 +12,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function that receives Amazon CloudWatch event record data as input
+// and writes S3 events information to Lambda's CloudWatch Logs.
 func handler(ctx context.Context, event events.CloudWatchEvent) error {
 	utility.Info("S3Events", "S3 Events Information",
 		utility.KVP{Key: "ID", Value: event.ID}, utility.KVP{Key: "Source", Value: event.Source},

@@ -8,6 +8,10 @@ export class ApiGatewayCorsLambdaStack extends cdk.Stack {
     super(scope, id, props);
 
     // ********** Lambda Function ********** //
+    // 1. Create a Lambda function that will receive
+    // the API Gateway event record and the response must
+    // include the "Access-Control-Allow-Origin" and
+    // "Access-Control-Allow-Methods" headers.
     const lambdaFn = new lambda.Function(this, 'lambdaFn', {
       memorySize: 1024,
       retryAttempts: 2,
@@ -20,6 +24,8 @@ export class ApiGatewayCorsLambdaStack extends cdk.Stack {
     });
 
     // ********** API Gateway ********** //
+    // 1. Create a Rest API having CORS configured, add
+    // an API Key, and configure the integration as LambdaIntegration.
     const api = new apigw.RestApi(this, 'rest-api', {
       deploy: true,
       restApiName: 'rest-api',
@@ -36,12 +42,12 @@ export class ApiGatewayCorsLambdaStack extends cdk.Stack {
       }
     });
 
-    // Setting API key
+    // 2. Setting API key.
     const plan = api.addUsagePlan('api-usage-plan', {
       name: 'api-usage-plan'
     });
 
-    // It will automatically generate an API key.
+    // 3. It will automatically generate an API key.
     const key = api.addApiKey('api-key', {
       apiKeyName: 'api-key'
     });
@@ -49,6 +55,8 @@ export class ApiGatewayCorsLambdaStack extends cdk.Stack {
     plan.addApiKey(key);
     plan.addApiStage({ stage: api.deploymentStage });
 
+    // 4. Create a Lambda Integration and add a POST request method
+    // having an API key required.
     const integration = new apigw.LambdaIntegration(lambdaFn);
     api.root.addMethod('POST', integration, {
       apiKeyRequired: true

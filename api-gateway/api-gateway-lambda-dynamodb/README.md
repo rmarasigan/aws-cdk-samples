@@ -10,7 +10,7 @@ When the API received an incoming request, it will validate if the required fiel
 
 **Method**: POST
 
-**Endpoint**: https://{api-id}.execute.api.{region}.amazonaws.com/prod/
+**Endpoint**: `https://{api-id}.execute.api.{region}.amazonaws.com/prod/`
 
 **Request Body**:
 ```json

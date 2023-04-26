@@ -17,12 +17,16 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function once triggered, will either create an object
+// that contains information, retrieve the data of the object, or
+// delete the object from the S3 bucket.
 func handler(ctx context.Context, data json.RawMessage) error {
 	var (
 		event  = new(schema.Event)
 		bucket = os.Getenv("BUCKET_NAME")
 	)
 
+	// Check if the S3 Bucket is configured
 	if len(bucket) == 0 {
 		err := errors.New("s3 bucket BUCKET_NAME environment is not set")
 		utility.Error(err, "EnvError", "S3 Bucket BUCKENT_NAME is not configured on the environment")

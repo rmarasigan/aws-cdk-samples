@@ -13,6 +13,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives the Amazon SQS event message data as input,
+// and writes the message data to CloudWatch Logs.
 func handler(ctx context.Context, event events.SQSEvent) error {
 	for _, record := range event.Records {
 		var item = new(api.Item)

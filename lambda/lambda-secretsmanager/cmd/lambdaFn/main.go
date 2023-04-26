@@ -16,12 +16,15 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function once triggered, will either update the
+// Secret Value or retrieve it.
 func handler(ctx context.Context, data json.RawMessage) error {
 	var (
 		event     = new(schema.Event)
 		secretARN = os.Getenv("SECRET_ARN")
 	)
 
+	// Check if the Secrets Manager ARN is configured
 	if secretARN == "" {
 		err := errors.New("secrets manager SECRET_ARN environment is not set")
 		utility.Error(err, "EnvError", "Secrets Manager SECRET_ARN is not configured on the environment")

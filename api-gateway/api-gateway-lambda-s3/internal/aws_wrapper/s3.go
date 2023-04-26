@@ -18,7 +18,8 @@ var (
 	s3Client *s3.Client
 )
 
-// initS3Client initializes the S3 Client
+// initS3Client initializes the S3 Client from the
+// provided configuration.
 func initS3Client(ctx context.Context) {
 	if s3Client != nil {
 		return

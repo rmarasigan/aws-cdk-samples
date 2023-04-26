@@ -17,6 +17,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function once triggered, validates the JSON-encoded
+// data and send the message to an SQS Queue.
 func handler(ctx context.Context, data json.RawMessage) error {
 	var (
 		queue = os.Getenv("QUEUE_URL")

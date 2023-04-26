@@ -9,7 +9,9 @@ export class ApiGatewayLambdaDynamodbStack extends cdk.Stack {
     super(scope, id, props);
 
     // ********** DynamoDB Table ********** //
-    const table = new dynamodb.Table(this, `data-table`, {
+    // 1. Create a DynamoDB Table that will contain
+    // the information of Coffee.
+    const table = new dynamodb.Table(this, 'data-table', {
       tableName: 'data-table',
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
@@ -24,6 +26,10 @@ export class ApiGatewayLambdaDynamodbStack extends cdk.Stack {
     });
 
     // ********** Lambda Function ********** //
+    // 1. Create a Lambda function that will receive
+    // the API Gateway event record and save the processed
+    // request to a DynamoDB table. Grant the Lambda Function
+    // a write access to the DynamoDB table.
     const lambdaFn = new lambda.Function(this, 'lambdaFn', {
       memorySize: 1024,
       retryAttempts: 2,
@@ -40,6 +46,8 @@ export class ApiGatewayLambdaDynamodbStack extends cdk.Stack {
     table.grantWriteData(lambdaFn);
 
     // ********** API Gateway ********** //
+    // 1. Create a Rest API and configure the integration
+    // as LambdaIntegration.
     const api = new apigw.RestApi(this, 'rest-api', {
       deploy: true,
       restApiName: 'rest-api',
@@ -51,6 +59,7 @@ export class ApiGatewayLambdaDynamodbStack extends cdk.Stack {
       }
     });
 
+    // 2. Create a Lambda Integration and add a POST request method.
     const integration = new apigw.LambdaIntegration(lambdaFn);
     api.root.addMethod('POST', integration);
   }

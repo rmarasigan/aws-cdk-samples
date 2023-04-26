@@ -15,6 +15,9 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives the AWS CloudWatch Logs event record data as input,
+// decode and decompressed the event, and writes the event information to the
+// DynamoDB Table.
 func handler(ctx context.Context, event awswrapper.CloudWatchEvent) error {
 	var (
 		STATE_MACHINE_ARN = os.Getenv("STATE_MACHINE_ARN")

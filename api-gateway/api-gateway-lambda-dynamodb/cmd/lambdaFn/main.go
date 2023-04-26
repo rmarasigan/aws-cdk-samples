@@ -16,18 +16,22 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives the Amazon API Gateway event record data as input,
+// validates the request body, saves the processed request to the DynamoDB, and
+// responds with a 200 OK HTTP Status.
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	var (
-		coffee    = new(api.Coffee)
 		body      = request.Body
+		coffee    = new(api.Coffee)
 		tablename = os.Getenv("TABLE_NAME")
 	)
 
+	// Check if the DynamoDB Table is configured
 	if tablename == "" {
 		err := errors.New("DynamoDB TABLE_NAME environment variable is not set")
 		utility.Error(err, "EnvError", "DynamoDB TABLE_NAME is not configured on the environment")
 
-		return api.BadRequest(err)
+		return api.InternalServerError()
 	}
 
 	// Unmarshal the request body

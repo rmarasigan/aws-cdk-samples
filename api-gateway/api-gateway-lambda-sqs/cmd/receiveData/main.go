@@ -16,6 +16,9 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives the Amazon API Gateway event record data as input,
+// validates the request body, send the message to an SQS Queue, and responds
+// with a 200 OK HTTP Status.
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	var (
 		body  = request.Body
@@ -23,7 +26,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		queue = os.Getenv("QUEUE_URL")
 	)
 
-	// Check if the QUEUE_URL is configured
+	// Check if the SQS Queue is configured
 	if queue == "" {
 		err := errors.New("QUEUE_URL is not set on the environment")
 		utility.Error(err, "EnvError", "QUEUE_URL is not configured on the environment")

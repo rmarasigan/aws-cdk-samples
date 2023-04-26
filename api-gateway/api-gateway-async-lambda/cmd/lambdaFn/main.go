@@ -13,6 +13,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives the Amazon API Gateway event record data as input
+// and writes the request body to CloudWatch Logs.
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) error {
 	// Check if the request body is not empty
 	if request.Body != "{}" {

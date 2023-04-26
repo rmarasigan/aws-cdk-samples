@@ -13,6 +13,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function receives the AWS CloudWatch Logs event record data as input,
+// decode and decompressed the event, and writes the event to CloudWatch Logs.
 func handler(ctx context.Context, event awswrapper.CloudWatchEvent) error {
 	// Decode and decompressed the received CloudWatch Event
 	data, err := event.DecodeData()

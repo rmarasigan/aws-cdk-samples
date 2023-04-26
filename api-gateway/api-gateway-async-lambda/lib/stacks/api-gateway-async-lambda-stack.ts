@@ -8,6 +8,8 @@ export class ApiGatewayAsyncLambdaStack extends cdk.Stack {
     super(scope, id, props);
 
     // ********** Lambda Function ********** //
+    // 1. Create a Lambda function that will receive
+    // the API Gateway event record.
     const lambdaFn = new lambda.Function(this, 'lambdaFn', {
       memorySize: 1024,
       retryAttempts: 2,
@@ -20,6 +22,8 @@ export class ApiGatewayAsyncLambdaStack extends cdk.Stack {
     });
 
     // ********** API Gateway ********** //
+    // 1. Create a Rest API and configure the
+    // integration as LambdaIntegration.
     const api = new apigw.RestApi(this, 'rest-api', {
       deploy: true,
       restApiName: 'rest-api',
@@ -31,6 +35,9 @@ export class ApiGatewayAsyncLambdaStack extends cdk.Stack {
       }
     });
 
+    // 2. Create a Lambda Integration and disable the proxy
+    // option, and add an integration request parameter header
+    // mapping "X-Amz-Invocation-Type: 'Event'" to make it asynchronous.
     const integration = new apigw.LambdaIntegration(lambdaFn, {
       proxy: false,
       requestParameters: {
@@ -51,6 +58,8 @@ export class ApiGatewayAsyncLambdaStack extends cdk.Stack {
       ]
     });
 
+    // 3. Add a POST request method and a method response of
+    // 200 OK HTTP Status.
     const restAPI = api.root.addMethod('POST', integration, {
       methodResponses: [{
         statusCode: '200',
