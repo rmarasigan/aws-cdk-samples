@@ -25,7 +25,6 @@ type Order struct {
 	Status      Status `json:"status,omitempty"`
 	Item        []Item `json:"item"`
 	Quantity    int64  `json:"quantity"`
-	Timestamp   string `json:"timestamp,omitempty"`
 }
 
 func (order *Order) Marshal() ([]byte, error) {

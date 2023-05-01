@@ -2,6 +2,9 @@ package awswrapper
 
 import (
 	"context"
+	"crypto/md5"
+	"encoding/hex"
+	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -34,15 +37,26 @@ func initSQSClient(ctx context.Context) {
 	sqsClient = sqs.NewFromConfig(cfg)
 }
 
+// generateMessageDeduplicationId returns a token to be used for the SQS message
+// deduplication id.
+func generateMessageDeduplicationId(message string) string {
+	hash := md5.Sum([]byte(message))
+	return hex.EncodeToString(hash[:])
+}
+
 // SQSSendMessage initializes the SQS client and delivers message to the specified queue.
 func SQSSendMessage(ctx context.Context, queue, message string) error {
 	// Initialize the SQSClient
 	initSQSClient(ctx)
 
 	var input = &sqs.SendMessageInput{
-		QueueUrl:       aws.String(queue),
-		MessageBody:    aws.String(message),
-		MessageGroupId: aws.String(SQS_MSG_GROUP_ID),
+		QueueUrl:    aws.String(queue),
+		MessageBody: aws.String(message),
+	}
+
+	if strings.Contains(queue, ".fifo") {
+		input.MessageGroupId = aws.String(SQS_MSG_GROUP_ID)
+		input.MessageDeduplicationId = aws.String(generateMessageDeduplicationId(message))
 	}
 
 	_, err := sqsClient.SendMessage(ctx, input)

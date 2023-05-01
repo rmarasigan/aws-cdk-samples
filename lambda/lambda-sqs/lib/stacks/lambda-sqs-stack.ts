@@ -3,10 +3,18 @@ import { Construct } from 'constructs';
 import { Queue } from 'aws-cdk-lib/aws-sqs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { SqsEventSource} from 'aws-cdk-lib/aws-lambda-event-sources';
+import { Role, ServicePrincipal, PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
 
 export class LambdaSqsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
+
+    // ********** IAM Role ********** //
+    // 1. Create an IAM Role for the Lambda function.
+    const role = new Role(this, 'lambda-sqs-role', {
+      roleName: 'lambda-sqs-role',
+      assumedBy: new ServicePrincipal('lambda.amazonaws.com')
+    });
 
     // ********** SQS Queue ********** //
     // 1. Create a deadletter queue that will
@@ -36,6 +44,7 @@ export class LambdaSqsStack extends cdk.Stack {
     // 1. Create a Lambda function to send the message
     // to an SQS queue and grant access to send messages.
     const receiveOrder = new lambda.Function(this, 'receiveOrder', {
+      role: role,
       retryAttempts: 1,
       memorySize: 1024,
       handler: 'receiveOrder',

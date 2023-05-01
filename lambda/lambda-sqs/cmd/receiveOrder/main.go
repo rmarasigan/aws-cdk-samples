@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
-	"time"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	awswrapper "github.com/rmarasigan/aws-cdk-samples/lambda/lambda-sqs/internal/aws_wrapper"
@@ -41,7 +40,6 @@ func handler(ctx context.Context, data json.RawMessage) error {
 	}
 
 	order.Status = order.Status.Received()
-	order.Timestamp = time.Now().Format("02 Jan 2006 15:04:05")
 
 	message, err := order.Marshal()
 	if err != nil {

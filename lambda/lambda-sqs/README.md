@@ -54,8 +54,7 @@ Invoking the first Lambda function via AWS Console or AWS CLI to send the messag
           "price": 1234.5
         }
       ],
-      "quantity": 1,
-      "timestamp": "26 Apr 2023 02:32:59"
+      "quantity": 1
     }
   },
   "log_timestamp": "2023-04-26 02:33:00"
@@ -72,6 +71,8 @@ Invoking the first Lambda function via AWS Console or AWS CLI to send the messag
 * [Getting Started with the AWS SDK for Go V2](https://aws.github.io/aws-sdk-go-v2/docs/getting-started/)
 
 ### AWS Documentation Developer Guide
+* [SetQueueAttributes](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SetQueueAttributes.html)
+* [Exactly-once processing](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html)
 * [Using Lambda with Amazon SQS](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html)
 * [Amazon SQS dead-letter queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html)
 * [Amazon SQS visibility timeout](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html)
