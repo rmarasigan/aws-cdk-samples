@@ -50,6 +50,7 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [Lambda → DynamoDB](lambda/lambda-dynamodb/README.md)
 * [Lambda → S3](lambda/lambda-s3/README.md)
 * [Lambda → Secrets Manager](lambda/lambda-secretsmanager/README.md)
+* [Lambda → SNS](lambda/lambda-sns/README.md)
 * [Lambda → SQS](lambda/lambda-sqs/README.md)
 
 ### [S3](s3/)
