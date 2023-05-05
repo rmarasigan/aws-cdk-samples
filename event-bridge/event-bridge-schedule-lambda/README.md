@@ -1,4 +1,4 @@
-# S3 → CloudTrail →  EventBridge Rule → Lambda
+# EventBridge Schedule → Lambda
 
 ![event-bridge-schedule-lambda](assets/img/event-bridge-schedule-lambda.png)
 
@@ -94,7 +94,6 @@ The `rule` will trigger the `target` every one (1) minute between 8:00AM and 9:0
 
 ### AWS SDK v2 API / Developer Reference
 * [AWS Lambda Events](https://github.com/aws/aws-lambda-go/blob/main/events/README.md)
-* [S3 Service Documentation](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/s3)
 * [Getting Started with the AWS SDK for Go V2](https://aws.github.io/aws-sdk-go-v2/docs/getting-started/)
 
 ### AWS Documentation Developer Guide
