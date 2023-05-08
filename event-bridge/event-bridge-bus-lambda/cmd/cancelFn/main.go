@@ -12,6 +12,9 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function will be triggered, if it received
+// an event from an EventBus and writes events information
+// to Lambda's CloudWatch Logs.
 func handler(ctx context.Context, event events.CloudWatchEvent) error {
 	utility.Info("CancelEvent", "Transaction Cancel Event", utility.KVP{Key: "event", Value: event})
 	return nil

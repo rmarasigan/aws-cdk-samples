@@ -11,6 +11,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function will be triggered based on the set
+// Event Schedule.
 func handler(ctx context.Context) error {
 	utility.Info("LambdaInvoke", "The lambda function is invoked by the scheduled EventBridge")
 	return nil

@@ -16,6 +16,9 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function once triggered, will send an event
+// to an EventBus configured, either if the transaction
+// is for payment or cancel.
 func handler(ctx context.Context, data json.RawMessage) error {
 	var (
 		transaction    = new(schema.Transaction)

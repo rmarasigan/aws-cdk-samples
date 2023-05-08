@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as events from 'aws-cdk-lib/aws-events';
-import { LambdaFunction, EventBus } from 'aws-cdk-lib/aws-events-targets';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 
 export class EventBridgeBusLambdaStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
