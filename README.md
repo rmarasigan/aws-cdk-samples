@@ -47,6 +47,7 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [CloudWatch Subscription → Lambda](cloudwatch/cloudwatch-subscription-lambda/README.md)
 
 ### [Event Bridge](event-bridge/)
+* [EventBridge Bus → API Destination](event-bridge/event-bridge-api-destination/README.md)
 * [EventBridge Bus → Lambda](event-bridge/event-bridge-bus-lambda/README.md)
 * [EventBridge Rule → Lambda](event-bridge/event-bridge-rule-lambda/README.md)
 * [EventBridge Schedule → Lambda](event-bridge/event-bridge-schedule-lambda/README.md)
