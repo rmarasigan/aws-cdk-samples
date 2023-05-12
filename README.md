@@ -67,6 +67,9 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [S3 Presigned URLs](s3/s3-presigned-urls/README.md)
 * [S3 Static Website hosting](s3/s3-website/README.md)
 
+### [SES](ses/)
+* [SES Sending Email](ses/ses-send-email/README.md)
+
 ### [Step Functions](step-functions/)
 * [Step Function with API Gateway](step-functions/step-functions-api-gateway/README.md)
 * [Step Function with CloudWatch](step-functions/step-functions-cloudwatch/README.md)
