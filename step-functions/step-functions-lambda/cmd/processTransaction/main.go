@@ -23,7 +23,7 @@ func handler(ctx context.Context, event json.RawMessage) error {
 
 	err := api.UnmarshalJSON(event, transaction)
 	if err != nil {
-		api.ErrorLog(err, "Failed to unmarshal the event message")
+		api.ErrorLog(err, "failed to unmarshal the event message")
 		return err
 	}
 

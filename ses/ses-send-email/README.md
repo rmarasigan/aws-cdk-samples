@@ -8,7 +8,6 @@ Check the inbox of the e-mail address used to create your identity and click the
 
 ![verified-ses-email-identity](assets/img/verified-ses-email-identity.png)
 
-
 ### Invoking Lambda function via AWS Console
 1. Go to Lambda → Lambda Function → **Test** tab
 2. Update the Event JSON textarea field (see [sample payload](#sample-payload))
@@ -42,6 +41,9 @@ Check the inbox of the e-mail address used to create your identity and click the
 * [Getting Started with the AWS SDK for Go V2](https://aws.github.io/aws-sdk-go-v2/docs/getting-started/)
 
 ### AWS Documentation Developer Guide
+* [Send an Email with Amazon SES](https://aws.amazon.com/getting-started/hands-on/send-an-email/)
+* [Verified identities in Amazon SES](https://docs.aws.amazon.com/ses/latest/dg/verify-addresses-and-domains.html)
+* [Moving out of the Amazon SES sandbox](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html)
 
 ### Useful commands
 The `cdk.json` file tells the CDK Toolkit how to execute your app.

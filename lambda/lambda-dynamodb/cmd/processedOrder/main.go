@@ -28,14 +28,14 @@ func handler(ctx context.Context, event events.DynamoDBEvent) error {
 
 	// Check if the DynamoDB Table is configured
 	if tablename == "" {
-		err := errors.New("DynamoDB TABLE_NAME environment variable is not set")
+		err := errors.New("dynamodb TABLE_NAME environment variable is not set")
 		utility.Error(err, "EnvError", "DynamoDB TABLE_NAME is not configured on the environment")
 
 		return err
 	}
 
 	if len(records) == 0 {
-		utility.Info("DynamoDBEvent", "There are no new events")
+		utility.Info("DynamoDBEvent", "there are no new events")
 		return nil
 	}
 
@@ -46,7 +46,7 @@ func handler(ctx context.Context, event events.DynamoDBEvent) error {
 
 			err := awswrapper.DynamoUpdateItem(ctx, tablename, referenceId, string(order.Status.Processed()))
 			if err != nil {
-				utility.Error(err, "DynamoDBError", "Failed to update item to the DynamoDB Table",
+				utility.Error(err, "DynamoDBError", "failed to update item to the DynamoDB Table",
 					utility.KVP{Key: "tablename", Value: tablename}, utility.KVP{Key: "referenceId", Value: referenceId})
 
 				return err

@@ -19,7 +19,7 @@ func handler(ctx context.Context, event awswrapper.CloudWatchEvent) error {
 	// Decode and decompressed the received CloudWatch Event
 	data, err := event.DecodeData()
 	if err != nil {
-		utility.Error(err, "CWError", "Failed to decode and decompressed the received event from CloudWatch", utility.KVP{Key: "event", Value: event})
+		utility.Error(err, "CWError", "failed to decode and decompressed the received event from CloudWatch", utility.KVP{Key: "event", Value: event})
 		return err
 	}
 

@@ -37,7 +37,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 	// Unmarshal the received JSON-encoded data
 	err := json.Unmarshal([]byte(data), order)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to unmarshal the JSON-encoded data", utility.KVP{Key: "data", Value: data})
+		utility.Error(err, "JSONError", "failed to unmarshal the JSON-encoded data", utility.KVP{Key: "data", Value: data})
 		return err
 	}
 
@@ -47,7 +47,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 		// Check if the order line already exist
 		existing, index, err := common.ExistingOrderLine(ctx, tablename, referenceId, line.ItemID)
 		if err != nil {
-			utility.Error(err, "DynamoDBError", "Failed to fetch the item to the DynamoDB", utility.KVP{Key: "order", Value: order})
+			utility.Error(err, "DynamoDBError", "failed to fetch the item to the DynamoDB", utility.KVP{Key: "order", Value: order})
 			return err
 		}
 
@@ -58,7 +58,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 			// Insert the object to the DynamoDB table
 			err = awswrapper.DynamoUpdateItem(ctx, tablename, *order)
 			if err != nil {
-				utility.Error(err, "DynamoDBError", "Failed to insert the item to the DynamoDB", utility.KVP{Key: "order", Value: order})
+				utility.Error(err, "DynamoDBError", "failed to insert the item to the DynamoDB", utility.KVP{Key: "order", Value: order})
 				return err
 			}
 
@@ -66,7 +66,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 			// Update an existing item object from the DynamoDB table
 			err = awswrapper.DynamoUpdateObject(ctx, tablename, referenceId, index, line)
 			if err != nil {
-				utility.Error(err, "DynamoDBError", "Failed to update the object from the DynamoDB", utility.KVP{Key: "order", Value: order})
+				utility.Error(err, "DynamoDBError", "failed to update the object from the DynamoDB", utility.KVP{Key: "order", Value: order})
 				return err
 			}
 		}

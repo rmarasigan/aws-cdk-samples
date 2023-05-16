@@ -16,6 +16,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function once triggered, will either subscribe to the SNS topic
+// or publish a message to the configured SNS Topic.
 func handler(ctx context.Context, data json.RawMessage) error {
 	var (
 		event = new(schema.Event)
@@ -24,7 +26,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 
 	// Check if the SNS Topic is configured
 	if topic == "" {
-		err := errors.New("sns TOPIC_ARN environment is not set")
+		err := errors.New("sns TOPIC_ARN environment variable is not set")
 		utility.Error(err, "EnvError", "SNS TOPIC_ARN is not configured on the environment")
 
 		return err
@@ -33,7 +35,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 	// Unmarshal the JSON-encoded data
 	err := json.Unmarshal([]byte(data), event)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data", utility.KVP{Key: "data", Value: data})
+		utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data", utility.KVP{Key: "data", Value: data})
 		return err
 	}
 
@@ -42,7 +44,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 		// Subscribe the endpoint to the configured SNS Topic
 		err = awswrapper.SNSSubscribe(ctx, topic, event.Content.User.Email)
 		if err != nil {
-			utility.Error(err, "SNSError", "Failed to subscribe an endpoint to the SNS Topic", utility.KVP{Key: "topic", Value: topic},
+			utility.Error(err, "SNSError", "failed to subscribe an endpoint to the SNS Topic", utility.KVP{Key: "topic", Value: topic},
 				utility.KVP{Key: "event", Value: event})
 			return err
 		}
@@ -51,7 +53,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 		// Publish the message to the configured SNS Topic
 		err = awswrapper.SNSPublish(ctx, topic, event.Message())
 		if err != nil {
-			utility.Error(err, "SNSError", "Failed to publish message to the topic", utility.KVP{Key: "topic", Value: topic},
+			utility.Error(err, "SNSError", "failed to publish message to the topic", utility.KVP{Key: "topic", Value: topic},
 				utility.KVP{Key: "event", Value: event})
 			return err
 		}

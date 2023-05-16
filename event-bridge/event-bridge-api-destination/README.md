@@ -71,19 +71,19 @@ Invoking the first Lambda function via AWS Console or AWS Console to send a cust
 
 ### Using make command
 1. Install all the dependencies, bootstrap your project, and synthesized CloudFormation template.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-api-destination$ make init
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-api-destination$ make init
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-api-destination$ make init profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-api-destination$ make init profile=[profile_name]
+    ```
 
 2. Deploy the project.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-api-destination$ make deploy
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-api-destination$ make deploy
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-api-destination$ make deploy profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-api-destination$ make deploy profile=[profile_name]
+    ```

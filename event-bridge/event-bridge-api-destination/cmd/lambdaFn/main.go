@@ -26,22 +26,22 @@ func handler(ctx context.Context) error {
 
 	// Check if the EventBridge Event Bus is configured
 	if EVENT_BUS == "" {
-		err := errors.New("eventbridge EVENT_BUS_NAME is not set")
-		utility.Error(err, "EnvError", "EVENT_BUS_NAME is not configured on the environment")
+		err := errors.New("eventbridge EVENT_BUS_NAME environment variable is not set")
+		utility.Error(err, "EnvError", "EventBridge EVENT_BUS_NAME is not configured on the environment")
 
 		return err
 	}
 
 	detail, err := alarm.CreateAlarm(ctx)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to marshal the alarm information")
+		utility.Error(err, "JSONError", "failed to marshal the alarm information")
 		return err
 	}
 
 	// Send the event to the configured Event Bus and specific source
 	err = awswrapper.EventBridgePutEvents(ctx, detail, SOURCE, EVENT_BUS)
 	if err != nil {
-		utility.Error(err, "EVBError", "Failed to send events to the Event Bus", utility.KVP{Key: "source", Value: SOURCE})
+		utility.Error(err, "EVBError", "failed to send events to the Event Bus", utility.KVP{Key: "source", Value: SOURCE})
 		return err
 	}
 

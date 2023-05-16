@@ -126,19 +126,19 @@ Invoking the Lambda function with EventBridge Rule if there is any `PutObject` e
 
 ### Using make command
 1. Install all the dependencies, bootstrap your project, and synthesized CloudFormation template.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-rule-lambda$ make init
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-rule-lambda$ make init
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-rule-lambda$ make init profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-rule-lambda$ make init profile=[profile_name]
+    ```
 
 2. Deploy the project.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-rule-lambda$ make deploy
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-rule-lambda$ make deploy
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-rule-lambda$ make deploy profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-rule-lambda$ make deploy profile=[profile_name]
+    ```

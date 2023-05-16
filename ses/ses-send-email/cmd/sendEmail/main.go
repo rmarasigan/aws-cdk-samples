@@ -15,6 +15,8 @@ func main() {
 	lambda.Start(handler)
 }
 
+// handler function once triggered, will send an e-mail to the configured
+// e-mail identity on Amazon SES after being validated.
 func handler(ctx context.Context, data json.RawMessage) error {
 	var (
 		identity = os.Getenv("EMAIL_IDENTITY")

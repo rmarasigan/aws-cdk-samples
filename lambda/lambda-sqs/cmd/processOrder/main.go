@@ -31,11 +31,11 @@ func handler(ctx context.Context, event events.SQSEvent) error {
 		// Unmarshal the event message
 		err := json.Unmarshal([]byte(record.Body), order)
 		if err != nil {
-			utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data", utility.KVP{Key: "data", Value: record.Body})
+			utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data", utility.KVP{Key: "data", Value: record.Body})
 			return err
 		}
 
-		utility.Info("SQSMessage", "Received event from Amazon SQS", utility.KVP{Key: "order", Value: order},
+		utility.Info("SQSMessage", "received event from Amazon SQS", utility.KVP{Key: "order", Value: order},
 			utility.KVP{Key: "messageId", Value: record.MessageId}, utility.KVP{Key: "eventSource", Value: record.EventSource})
 	}
 

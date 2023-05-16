@@ -21,11 +21,11 @@ func handler(ctx context.Context, event events.SQSEvent) error {
 
 		err := api.UnmarshalJSON([]byte(record.Body), item)
 		if err != nil {
-			utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data")
+			utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data")
 			return err
 		}
 
-		utility.Info("SQSEvent", "Message to process", utility.KVP{Key: "Item", Value: item})
+		utility.Info("SQSEvent", "message to process", utility.KVP{Key: "item", Value: item})
 	}
 
 	return nil

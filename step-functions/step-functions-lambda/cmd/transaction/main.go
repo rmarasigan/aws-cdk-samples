@@ -29,8 +29,8 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 
 	// Check if the STATE_MACHINE_ARN is configured
 	if STATE_MACHINE_ARN == "" {
-		err := errors.New("STATE_MACHINE_ARN is not set on the environment")
-		utility.Error(err, "EnvError", "STATE_MACHINE_ARN is missing")
+		err := errors.New("step functions STATE_MACHINE_ARN environment is not set")
+		utility.Error(err, "EnvError", "Step Functions STATE_MACHINE_ARN is not configured on the environment")
 
 		return api.InternalServerError()
 	}
@@ -38,28 +38,28 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 	// Unmarshal the request
 	err := api.UnmarshalJSON([]byte(body), transaction)
 	if err != nil {
-		api.ErrorLog(err, "Failed to unmarshal the JSON-encoded data", utility.KVP{Key: "body", Value: body})
+		api.ErrorLog(err, "failed to unmarshal the JSON-encoded data", utility.KVP{Key: "body", Value: body})
 		return api.InternalServerError()
 	}
 
 	// Validate the incoming request
 	err = transaction.Validate()
 	if err != nil {
-		api.ErrorLog(err, "Some fields in the request body were missing/incorrect", utility.KVP{Key: "body", Value: body})
+		api.ErrorLog(err, "some fields in the request body were missing/incorrect", utility.KVP{Key: "body", Value: body})
 		return api.BadRequest(err)
 	}
 	transaction.SetDefaultTransactionValues()
 
 	data, err := api.MarshalJSON(transaction)
 	if err != nil {
-		api.ErrorLog(err, "Failed to marshal the request", utility.KVP{Key: "transaction", Value: transaction})
+		api.ErrorLog(err, "failed to marshal the request", utility.KVP{Key: "transaction", Value: transaction})
 		return api.InternalServerError()
 	}
 
 	// Start the Step Function State Machine and send the data as the input
 	err = awswrapper.SFnStartExecution(ctx, STATE_MACHINE_ARN, string(data))
 	if err != nil {
-		utility.Error(err, "SFnError", "Failed to start the step function",
+		utility.Error(err, "SFnError", "failed to start the step function",
 			utility.KVP{Key: "state_machine", Value: STATE_MACHINE_ARN}, utility.KVP{Key: "data", Value: string(data)})
 
 		return api.InternalServerError()

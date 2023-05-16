@@ -28,8 +28,8 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 
 	// Check if the SQS Queue is configured
 	if queue == "" {
-		err := errors.New("QUEUE_URL is not set on the environment")
-		utility.Error(err, "EnvError", "QUEUE_URL is not configured on the environment")
+		err := errors.New("sqs QUEUE_URL environment variable is not set")
+		utility.Error(err, "EnvError", "SQS QUEUE_URL is not configured on the environment")
 
 		return api.InternalServerError()
 	}
@@ -37,27 +37,27 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 	// Unmarshal the request body
 	err := api.UnmarshalJSON([]byte(body), item)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data")
+		utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data")
 		return api.InternalServerError()
 	}
 
 	// Validate the incoming request
 	err = item.ValidateRequest()
 	if err != nil {
-		utility.Error(err, "APIError", "Some field(s) is/are missing")
+		utility.Error(err, "APIError", "some field(s) is/are missing")
 		return api.BadRequest(err)
 	}
 
 	data, err := api.MarshalJSON(item)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to marshal JSON-encoded data")
+		utility.Error(err, "JSONError", "failed to marshal JSON-encoded data")
 		return api.InternalServerError()
 	}
 
 	// Send the received request to the configured SQS
 	err = awswrapper.SQSSendMessage(ctx, queue, string(data))
 	if err != nil {
-		utility.Error(err, "SQSError", "Failed to send data to the configured SQS", utility.KVP{Key: "queue", Value: queue})
+		utility.Error(err, "SQSError", "failed to send data to the configured SQS", utility.KVP{Key: "queue", Value: queue})
 		return api.InternalServerError()
 	}
 

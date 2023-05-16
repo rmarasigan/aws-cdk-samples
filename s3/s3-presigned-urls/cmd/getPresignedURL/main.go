@@ -31,8 +31,8 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 
 	// Check if the bucket is set in the environment
 	if bucket == "" {
-		err := errors.New("'BUCKET_NAME' is not set on the environment")
-		utility.Error(err, "ConfigError", "'BUCKET_NAME' is not configured on the environment")
+		err := errors.New("s3 BUCKET_NAME environment variable is not set")
+		utility.Error(err, "EnvError", "S3 BUCKET_NAME is not configured on the environment")
 
 		return api.InternalServerError()
 	}
@@ -58,7 +58,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		// Get presigned HTTP Request
 		presign, err := awswrapper.S3PresignPutObject(ctx, bucket, key, contentType)
 		if err != nil {
-			utility.Error(err, "S3Error", "Failed to get the presigned URL for PUT", utility.KVP{Key: "key", Value: key})
+			utility.Error(err, "S3Error", "failed to get the presigned URL for PUT", utility.KVP{Key: "key", Value: key})
 			return api.InternalServerError()
 		}
 
@@ -69,7 +69,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 		// Get presigned HTTP Request
 		presign, err := awswrapper.S3PresignGetObject(ctx, bucket, key)
 		if err != nil {
-			utility.Error(err, "S3Error", "Failed to get the presigned URL for GET", utility.KVP{Key: "key", Value: key})
+			utility.Error(err, "S3Error", "failed to get the presigned URL for GET", utility.KVP{Key: "key", Value: key})
 			return api.InternalServerError()
 		}
 

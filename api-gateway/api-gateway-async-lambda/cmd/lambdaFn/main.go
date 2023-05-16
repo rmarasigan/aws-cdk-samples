@@ -18,7 +18,7 @@ func main() {
 func handler(ctx context.Context, request events.APIGatewayProxyRequest) error {
 	// Check if the request body is not empty
 	if request.Body != "{}" {
-		utility.OK("RestAPI", "Received API Gateway Request Body", utility.KVP{Key: "Body", Value: request.Body})
+		utility.OK("RestAPI", "received API Gateway Request Body", utility.KVP{Key: "Body", Value: request.Body})
 		return nil
 	}
 

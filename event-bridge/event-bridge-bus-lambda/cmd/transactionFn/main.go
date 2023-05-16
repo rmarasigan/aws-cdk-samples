@@ -29,8 +29,8 @@ func handler(ctx context.Context, data json.RawMessage) error {
 
 	// Check if the EventBridge Event Bus is configured
 	if EVENT_BUS == "" {
-		err := errors.New("eventbridge EVENT_BUS_NAME is not set")
-		utility.Error(err, "EnvError", "EVENT_BUS_NAME is not configured on the environment")
+		err := errors.New("eventbridge EVENT_BUS_NAME environment variable is not set")
+		utility.Error(err, "EnvError", "EventBridge EVENT_BUS_NAME is not configured on the environment")
 
 		return err
 	}
@@ -38,13 +38,13 @@ func handler(ctx context.Context, data json.RawMessage) error {
 	// Unmarshal the JSON-encoded data
 	err := json.Unmarshal([]byte(data), transaction)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data", utility.KVP{Key: "data", Value: data})
+		utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data", utility.KVP{Key: "data", Value: data})
 		return err
 	}
 
 	detail, err := transaction.Marshal()
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to marshal the transaction data", utility.KVP{Key: "data", Value: data})
+		utility.Error(err, "JSONError", "failed to marshal the transaction data", utility.KVP{Key: "data", Value: data})
 		return err
 	}
 
@@ -53,7 +53,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 		// Send the event to the configured Event Bus and specific source (transaction:payment)
 		err := awswrapper.EventBridgePutEvents(ctx, detail, PAYMENT_SOURCE, EVENT_BUS)
 		if err != nil {
-			utility.Error(err, "EVBError", "Failed to send events to the Event Bus", utility.KVP{Key: "source", Value: PAYMENT_SOURCE}, utility.KVP{Key: "detail", Value: detail})
+			utility.Error(err, "EVBError", "failed to send events to the Event Bus", utility.KVP{Key: "source", Value: PAYMENT_SOURCE}, utility.KVP{Key: "detail", Value: detail})
 			return err
 		}
 
@@ -61,14 +61,14 @@ func handler(ctx context.Context, data json.RawMessage) error {
 		// Send the event to the configured Event Bus and specific source (transaction:cancel)
 		err := awswrapper.EventBridgePutEvents(ctx, detail, CANCEL_SOURCE, EVENT_BUS)
 		if err != nil {
-			utility.Error(err, "EVBError", "Failed to send events to the Event Bus", utility.KVP{Key: "source", Value: CANCEL_SOURCE}, utility.KVP{Key: "detail", Value: detail})
+			utility.Error(err, "EVBError", "failed to send events to the Event Bus", utility.KVP{Key: "source", Value: CANCEL_SOURCE}, utility.KVP{Key: "detail", Value: detail})
 			return err
 		}
 
 	default:
 		// Return an error as the Transaction type is unknown
 		err := errors.New("invalid transaction 'type'")
-		utility.Error(err, "TransactionError", "Unknown transaction 'type'", utility.KVP{Key: "type", Value: transaction.Type}, utility.KVP{Key: "detail", Value: detail})
+		utility.Error(err, "TransactionError", "unknown transaction 'type'", utility.KVP{Key: "type", Value: transaction.Type}, utility.KVP{Key: "detail", Value: detail})
 		return err
 	}
 

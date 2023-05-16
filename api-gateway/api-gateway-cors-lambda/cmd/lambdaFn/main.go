@@ -25,14 +25,14 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 	// Unmarshal the JSON-encoded request body
 	err := api.UnmarshalJSON([]byte(body), &coffee)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data")
+		utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data")
 		return api.BadRequest(err)
 	}
 
 	// Validate the incoming request body
 	err = coffee.ValidateRequest()
 	if err != nil {
-		utility.Error(err, "APIError", "Some field(s) is/are missing")
+		utility.Error(err, "APIError", "some field(s) is/are missing")
 		return api.BadRequest(err)
 	}
 

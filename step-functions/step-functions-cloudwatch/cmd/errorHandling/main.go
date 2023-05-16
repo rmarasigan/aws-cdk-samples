@@ -25,8 +25,8 @@ func handler(ctx context.Context, event awswrapper.CloudWatchEvent) error {
 
 	// Check if the STATE_MACHINE_ARN is configured
 	if STATE_MACHINE_ARN == "" {
-		err := errors.New("STATE_MACHINE_ARN is not set on the environment")
-		utility.Error(err, "EnvError", "STATE_MACHINE_ARN is missing")
+		err := errors.New("step functions STATE_MACHINE_ARN environment is not set")
+		utility.Error(err, "EnvError", "Step Functions STATE_MACHINE_ARN is missing")
 
 		return err
 	}
@@ -34,7 +34,7 @@ func handler(ctx context.Context, event awswrapper.CloudWatchEvent) error {
 	// Decode and decompressed the received CloudWatch Event
 	data, err := event.DecodeData()
 	if err != nil {
-		utility.Error(err, "CWError", "Failed to decode and decompressed the received event from CloudWatch", utility.KVP{Key: "event", Value: event})
+		utility.Error(err, "CWError", "failed to decode and decompressed the received event from CloudWatch", utility.KVP{Key: "event", Value: event})
 		return err
 	}
 
@@ -42,8 +42,8 @@ func handler(ctx context.Context, event awswrapper.CloudWatchEvent) error {
 	input := utility.EncodeJSON(data)
 	err = awswrapper.SFnStartExecution(ctx, STATE_MACHINE_ARN, input)
 	if err != nil {
-		utility.Error(err, "SFnError", "Failed to start the step function",
-			utility.KVP{Key: "state_machine", Value: STATE_MACHINE_ARN}, utility.KVP{Key: "data", Value: input})
+		utility.Error(err, "SFnError", "failed to start the step function",
+			utility.KVP{Key: "state_machine", Value: STATE_MACHINE_ARN}, utility.KVP{Key: "input", Value: input})
 
 		return err
 	}

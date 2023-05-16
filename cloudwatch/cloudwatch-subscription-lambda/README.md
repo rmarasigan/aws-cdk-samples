@@ -67,19 +67,19 @@ Here's a sample lambda subscription filter:
 
 ### Using make command
 1. Install all the dependencies, bootstrap your project, and synthesized CloudFormation template.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/cloudwatch/cloudwatch-subscription-lambda$ make init
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/cloudwatch/cloudwatch-subscription-lambda$ make init
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/cloudwatch/cloudwatch-subscription-lambda$ make init profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/cloudwatch/cloudwatch-subscription-lambda$ make init profile=[profile_name]
+    ```
 
 2. Deploy the project.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/cloudwatch/cloudwatch-subscription-lambda$ make deploy
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/cloudwatch/cloudwatch-subscription-lambda$ make deploy
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/cloudwatch/cloudwatch-subscription-lambda$ make deploy profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/cloudwatch/cloudwatch-subscription-lambda$ make deploy profile=[profile_name]
+    ```

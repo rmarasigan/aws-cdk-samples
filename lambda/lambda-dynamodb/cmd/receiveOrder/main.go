@@ -25,7 +25,7 @@ func handler(ctx context.Context) error {
 
 	// Check if the DynamoDB Table is configured
 	if tablename == "" {
-		err := errors.New("DynamoDB TABLE_NAME environment variable is not set")
+		err := errors.New("dynamodb TABLE_NAME environment variable is not set")
 		utility.Error(err, "EnvError", "DynamoDB TABLE_NAME is not configured on the environment")
 
 		return err
@@ -34,7 +34,7 @@ func handler(ctx context.Context) error {
 	// Insert the record into the DynamoDB table
 	err := awswrapper.DynamoPutItem(ctx, tablename, order.CreateOrder())
 	if err != nil {
-		utility.Error(err, "DynamoDBError", "Failed to put item to the DynamoDB Table", utility.KVP{Key: "tablename", Value: tablename})
+		utility.Error(err, "DynamoDBError", "failed to put item to the DynamoDB Table", utility.KVP{Key: "tablename", Value: tablename})
 		return err
 	}
 

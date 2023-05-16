@@ -7,9 +7,9 @@ Invoking the Lambda function via AWS Console or AWS CLI to create a request to t
 **NOTE**: When the stack is being deployed, please remember that it will automatically generate a default secret value if not initialized.
 
 ### Invoking Lambda function via AWS Console
-1. Go to Lambda → Lambda Function → Test tab
+1. Go to Lambda → Lambda Function → ***Test*** tab
 2. Update the Event JSON textarea field (see [sample payload](#sample-payload))
-3. Click on the Test button in the upper right corner
+3. Click on the **Test** button in the upper right corner
 
 ### Invoking Lambda function via AWS CLI
 1. Use the following command and replace the placeholder `lambda_function_name` with the actual Lambda function name
@@ -69,19 +69,19 @@ Invoking the Lambda function via AWS Console or AWS CLI to create a request to t
 
 ### Using make command
 1. Install all the dependencies, bootstrap your project, and synthesized CloudFormation template.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/lambda/lambda-secretsmanager$ make init
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/lambda/lambda-secretsmanager$ make init
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/lambda/lambda-secretsmanager$ make init profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/lambda/lambda-secretsmanager$ make init profile=[profile_name]
+    ```
 
 2. Deploy the project.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/lambda/lambda-secretsmanager$ make deploy
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/lambda/lambda-secretsmanager$ make deploy
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/lambda/lambda-secretsmanager$ make deploy profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/lambda/lambda-secretsmanager$ make deploy profile=[profile_name]
+    ```

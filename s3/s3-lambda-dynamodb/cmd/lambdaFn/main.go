@@ -26,7 +26,7 @@ func handler(ctx context.Context, events events.S3Event) error {
 
 	// Check if the DynamoDB Table is configured
 	if tablename == "" {
-		err := errors.New("DynamoDB TABLE_NAME environment variable is not set")
+		err := errors.New("dynamodb TABLE_NAME environment variable is not set")
 		utility.Error(err, "EnvError", "DynamoDB TABLE_NAME is not configured on the environment")
 
 		return err
@@ -42,7 +42,7 @@ func handler(ctx context.Context, events events.S3Event) error {
 		// Fetch the object data from the S3 bucket
 		data, err := awswrapper.S3GetObject(ctx, bucket, key)
 		if err != nil {
-			utility.Error(err, "S3Error", "Failed to get object from S3 bucket",
+			utility.Error(err, "S3Error", "failed to get object from S3 bucket",
 				utility.KVP{Key: "bucket", Value: bucket}, utility.KVP{Key: "key", Value: key})
 
 			return err
@@ -51,7 +51,7 @@ func handler(ctx context.Context, events events.S3Event) error {
 		// Unmarshal the raw data
 		err = api.UnmarshalJSON(data, item)
 		if err != nil {
-			utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data",
+			utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data",
 				utility.KVP{Key: "bucket", Value: bucket}, utility.KVP{Key: "key", Value: key},
 				utility.KVP{Key: "data", Value: data})
 
@@ -61,7 +61,7 @@ func handler(ctx context.Context, events events.S3Event) error {
 		// Validate the raw data
 		err = item.ValidateRequest()
 		if err != nil {
-			utility.Error(err, "ItemError", "Some field(s) is/are missing",
+			utility.Error(err, "ItemError", "some field(s) is/are missing",
 				utility.KVP{Key: "bucket", Value: bucket}, utility.KVP{Key: "key", Value: key})
 
 			return err
@@ -70,7 +70,7 @@ func handler(ctx context.Context, events events.S3Event) error {
 		// Insert the record into the DynamoDB Table
 		err = awswrapper.DynamoPutItem(ctx, tablename, *item)
 		if err != nil {
-			utility.Error(err, "DynamoDBError", "Failed to put item to the DynamoDB Table",
+			utility.Error(err, "DynamoDBError", "failed to put item to the DynamoDB Table",
 				utility.KVP{Key: "bucket", Value: bucket}, utility.KVP{Key: "key", Value: key},
 				utility.KVP{Key: "tablename", Value: tablename})
 
@@ -80,7 +80,7 @@ func handler(ctx context.Context, events events.S3Event) error {
 		// Delete object after being processed
 		err = awswrapper.S3DeleteObject(ctx, bucket, key)
 		if err != nil {
-			utility.Error(err, "S3Error", "Failed to delete/remove object from S3 bucket",
+			utility.Error(err, "S3Error", "failed to delete/remove object from S3 bucket",
 				utility.KVP{Key: "bucket", Value: bucket}, utility.KVP{Key: "key", Value: key})
 
 			return err

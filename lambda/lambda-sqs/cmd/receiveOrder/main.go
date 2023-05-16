@@ -26,7 +26,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 
 	// Check if the QUEUE_URL is configured
 	if len(queue) == 0 {
-		err := errors.New("sqs QUEUE_URL environment is not set")
+		err := errors.New("sqs QUEUE_URL environment variable is not set")
 		utility.Error(err, "SQSError", "SQS QUEUE_URL is not configured on the environment")
 
 		return err
@@ -35,7 +35,7 @@ func handler(ctx context.Context, data json.RawMessage) error {
 	// Unmarshal the received JSON event
 	err := json.Unmarshal([]byte(data), order)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data", utility.KVP{Key: "data", Value: data})
+		utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data", utility.KVP{Key: "data", Value: data})
 		return err
 	}
 
@@ -43,14 +43,14 @@ func handler(ctx context.Context, data json.RawMessage) error {
 
 	message, err := order.Marshal()
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to marshal the order", utility.KVP{Key: "order", Value: order})
+		utility.Error(err, "JSONError", "failed to marshal the order", utility.KVP{Key: "order", Value: order})
 		return err
 	}
 
 	// Send the message to the queue
 	err = awswrapper.SQSSendMessage(ctx, queue, string(message))
 	if err != nil {
-		utility.Error(err, "SQSError", "Failed to send message", utility.KVP{Key: "queue", Value: queue}, utility.KVP{Key: "order", Value: order})
+		utility.Error(err, "SQSError", "failed to send message", utility.KVP{Key: "queue", Value: queue}, utility.KVP{Key: "order", Value: order})
 		return err
 	}
 

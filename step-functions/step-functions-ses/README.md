@@ -90,19 +90,19 @@ Invoking the first Lambda Function via AWS Console or AWS CLI to create a transa
 
 ### Using make command
 1. Install all the dependencies, bootstrap your project, and synthesized CloudFormation template.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/step-functions/step-functions-ses$ make init
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/step-functions/step-functions-ses$ make init
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/step-functions/step-functions-ses$ make init profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/step-functions/step-functions-ses$ make init profile=[profile_name]
+    ```
 
 2. Deploy the project.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/step-functions/step-functions-ses$ make deploy
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/step-functions/step-functions-ses$ make deploy
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/step-functions/step-functions-ses$ make deploy profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/step-functions/step-functions-ses$ make deploy profile=[profile_name]
+    ```

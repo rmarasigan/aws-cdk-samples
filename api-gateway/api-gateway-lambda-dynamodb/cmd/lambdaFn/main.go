@@ -28,7 +28,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 
 	// Check if the DynamoDB Table is configured
 	if tablename == "" {
-		err := errors.New("DynamoDB TABLE_NAME environment variable is not set")
+		err := errors.New("dynamodb TABLE_NAME environment variable is not set")
 		utility.Error(err, "EnvError", "DynamoDB TABLE_NAME is not configured on the environment")
 
 		return api.InternalServerError()
@@ -37,21 +37,21 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (*event
 	// Unmarshal the request body
 	err := api.UnmarshalJSON([]byte(body), coffee)
 	if err != nil {
-		utility.Error(err, "JSONError", "Failed to unmarshal JSON-encoded data")
+		utility.Error(err, "JSONError", "failed to unmarshal JSON-encoded data")
 		return api.BadRequest(err)
 	}
 
 	// Validate the incoming request body
 	err = coffee.ValidateRequest()
 	if err != nil {
-		utility.Error(err, "APIError", "Some field(s) is/are missing")
+		utility.Error(err, "APIError", "some field(s) is/are missing")
 		return api.BadRequest(err)
 	}
 
 	// Insert the record into the DynamoDB Table
 	err = awswrapper.DynamoPutItem(ctx, tablename, *coffee)
 	if err != nil {
-		utility.Error(err, "DynamoDBError", "Failed to put item to the DynamoDB Table", utility.KVP{Key: "tablename", Value: tablename})
+		utility.Error(err, "DynamoDBError", "failed to put item to the DynamoDB Table", utility.KVP{Key: "tablename", Value: tablename})
 		return api.BadRequest(err)
 	}
 

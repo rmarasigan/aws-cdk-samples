@@ -65,7 +65,6 @@ The *`cron` expressions* have six required fields, which are separated by white 
 #### Example
 The `rule` will trigger the `target` every one (1) minute between 8:00AM and 9:00PM (PH Time).
 
-
 * Using `expression`:
     ```typescript
     const scheduleRule = new events.Rule(this, 'schedule-rule', {
@@ -114,19 +113,19 @@ The `rule` will trigger the `target` every one (1) minute between 8:00AM and 9:0
 
 ### Using make command
 1. Install all the dependencies, bootstrap your project, and synthesized CloudFormation template.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-schedule-lambda$ make init
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-schedule-lambda$ make init
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-schedule-lambda$ make init profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-schedule-lambda$ make init profile=[profile_name]
+    ```
 
 2. Deploy the project.
-  ```bash
-  # Without passing "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-schedule-lambda$ make deploy
+    ```bash
+    # Without passing "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-schedule-lambda$ make deploy
 
-  # With "profile" parameter
-  dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-schedule-lambda$ make deploy profile=[profile_name]
-  ```
+    # With "profile" parameter
+    dev@dev:~:aws-cdk-samples/event-bridge/event-bridge-schedule-lambda$ make deploy profile=[profile_name]
+    ```
