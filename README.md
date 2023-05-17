@@ -76,3 +76,4 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [Step Function with DynamoDB](step-functions/step-functions-dynamodb/README.md)
 * [Step Function with Lambda](step-functions/step-functions-lambda/README.md)
 * [Step Function with SES](step-functions/step-functions-ses/README.md)
+* [Step Function with SNS](step-functions/step-functions-sns/README.md)
