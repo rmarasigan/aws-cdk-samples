@@ -73,5 +73,6 @@ When no `--profile` parameter provided in the command, `default` profile will be
 ### [Step Functions](step-functions/)
 * [Step Function with API Gateway](step-functions/step-functions-api-gateway/README.md)
 * [Step Function with CloudWatch](step-functions/step-functions-cloudwatch/README.md)
+* [Step Function with DynamoDB](step-functions/step-functions-dynamodb/README.md)
 * [Step Function with Lambda](step-functions/step-functions-lambda/README.md)
 * [Step Function with SES](step-functions/step-functions-ses/README.md)
