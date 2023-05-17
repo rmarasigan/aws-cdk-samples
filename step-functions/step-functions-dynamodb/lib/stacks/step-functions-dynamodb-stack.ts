@@ -22,7 +22,7 @@ export class StepFunctionsDynamodbStack extends cdk.Stack {
       }
     });
 
-     // ********** CloudWatch ********** //
+    // ********** CloudWatch ********** //
     // 1. Create a log group that is to be used by State Machine.
     const logGroup = new cw_logs.LogGroup(this, 'user-state-machine', {
       logGroupName: 'user-state-machine',
