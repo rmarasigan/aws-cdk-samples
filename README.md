@@ -38,6 +38,7 @@ When no `--profile` parameter provided in the command, `default` profile will be
 
 ### [API Gateway](api-gateway/)
 * [API Gateway Async → Lambda](api-gateway/api-gateway-async-lambda/README.md)
+* [API Gateway + Cognito → Lambda](api-gateway/api-gateway-cognito-lambda/README.md)
 * [API Gateway CORS + API Key → Lambda](api-gateway/api-gateway-cors-lambda/README.md)
 * [API Gateway → Lambda → DynamoDB](api-gateway/api-gateway-lambda-dynamodb/README.md)
 * [API Gateway → Lambda → S3 Bucket](api-gateway/api-gateway-lambda-s3/README.md)
@@ -77,3 +78,4 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [Step Function with Lambda](step-functions/step-functions-lambda/README.md)
 * [Step Function with SES](step-functions/step-functions-ses/README.md)
 * [Step Function with SNS](step-functions/step-functions-sns/README.md)
+* [Step Function with SQS](step-functions/step-functions-sqs/README.md)

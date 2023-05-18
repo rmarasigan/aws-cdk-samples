@@ -25,7 +25,7 @@ export class StepFunctionsSnsStack extends cdk.Stack {
     topic.addSubscription(new EmailSubscription('your_email@email.com'));
 
     // ********** CloudWatch ********** //
-    // 1 Create a log group that is to be used by State Machine.
+    // 1. Create a log group that is to be used by State Machine.
     const logGroup = new cw_logs.LogGroup(this, 'sns-publish-state-machine', {
       logGroupName: 'sns-publish-state-machine',
       removalPolicy: cdk.RemovalPolicy.DESTROY
