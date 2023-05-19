@@ -48,6 +48,7 @@ When no `--profile` parameter provided in the command, `default` profile will be
 * [CloudWatch Subscription → Lambda](cloudwatch/cloudwatch-subscription-lambda/README.md)
 
 ### [DynamoDB](dynamodb/README.md)
+* [DynamoDB Alarm Metrics](dynamodb/dynamodb-alarm-metrics/README.md)
 * [DynamoDB Stream → Lambda](dynamodb/dynamodb-stream-lambda/README.md)
 
 ### [Event Bridge](event-bridge/)
