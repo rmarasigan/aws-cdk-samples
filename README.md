@@ -75,6 +75,9 @@ When no `--profile` parameter provided in the command, `default` profile will be
 ### [SES](ses/)
 * [SES Sending Email](ses/ses-send-email/README.md)
 
+### [SNS](sns/)
+* [SNS Email Subscription](sns/sns-email-subscription/README.md)
+
 ### [Step Functions](step-functions/)
 * [Step Function with API Gateway](step-functions/step-functions-api-gateway/README.md)
 * [Step Function with CloudWatch](step-functions/step-functions-cloudwatch/README.md)
