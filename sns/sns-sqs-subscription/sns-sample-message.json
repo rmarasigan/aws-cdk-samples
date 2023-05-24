@@ -1,0 +1,11 @@
+{
+  "referenceId": "SMPLORDR-1234567890",
+  "quantity": 1,
+  "item": [
+    {
+      "id": "SMPLITM-12345",
+      "name": "Sample Item",
+      "price": 1234.50
+    }
+  ]
+}

@@ -78,6 +78,7 @@ When no `--profile` parameter provided in the command, `default` profile will be
 ### [SNS](sns/)
 * [SNS Email Subscription](sns/sns-email-subscription/README.md)
 * [SNS Lambda Subscription](sns/sns-lambda-subscription/README.md)
+* [SNS SQS Subscription](sns/sns-sqs-subscription/README.md)
 
 ### [Step Functions](step-functions/)
 * [Step Function with API Gateway](step-functions/step-functions-api-gateway/README.md)

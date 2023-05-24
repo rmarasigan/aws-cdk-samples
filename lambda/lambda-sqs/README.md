@@ -63,8 +63,8 @@ Invoking the first Lambda function via AWS Console or AWS CLI to send the messag
 
 ### AWS CDK API / Developer Reference
 * [AWS Lambda](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html)
-* [Amazon Simple Queue ServiceS3](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_sqs-readme.html)
 * [AWS Lambda Event Sources](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda_event_sources-readme.html)
+* [Amazon Simple Queue Service](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_sqs-readme.html)
 
 ### AWS SDK v2 API / Developer Reference
 * [SQS Service Documentation](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/sqs)
