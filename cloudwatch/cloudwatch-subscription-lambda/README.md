@@ -4,6 +4,19 @@
 
 Invoking the Lambda Function with a CloudWatch Logs event. Every log that is created or matches the filter pattern will automatically invoke the Lambda Function and log the received event. If you want multiple log groups for a single subscription, you can create multiple `SubscriptionFilter` instances with different log groups but the same Lambda function as the destination. If you want to create a Lambda Subscription Filter via Console or AWS CLI, you can comment out the CloudWatch-related CDK code in the stack file and follow the steps below.
 
+## CloudWatch Logs Permission
+Grant CloudWatch Logs permission to execute the Lambda Function. Use the following command and replace the placeholder `account_id` with your account, and the placeholder `region` with your desired region.
+
+```bash
+aws lambda add-permission \
+--function-name "handleSubscription" \
+--statement-id "handleSubscription" \
+--principal "logs.amazonaws.com" \
+--action "lambda:InvokeFunction" \
+--source-arn "arn:aws:logs:region:account_id:log-group:*:*" \
+--source-account "account_id"
+```
+
 ### Create Lambda Subscription Filter via Console
 1. Go to CloudWatch → Logs → Log groups → Log Group Name
 2. Go to Subscription filters → Create → Create Lambda subscription filter
@@ -15,20 +28,7 @@ Here's a sample lambda subscription filter:
 ![create-lambda-subscription-filter](assets/img/create-lambda-subscription-filter.png)
 
 ### Create Lambda Subscription Filter via AWS CLI
-
-1. Grant CloudWatch Logs permission to execute the Lambda Function. Use the following command and replace the placeholder `account_id` with your account, and the placeholder `region` with your desired region.
-
-    ```bash
-    aws lambda add-permission \
-    --function-name "handleSubscription" \
-    --statement-id "handleSubscription" \
-    --principal "logs.amazonaws.com" \
-    --action "lambda:InvokeFunction" \
-    --source-arn "arn:aws:logs:region:account_id:log-group:*:*" \
-    --source-account "account_id"
-    ```
-
-2. Create a subscription filter using the following command and replace the placeholder `account_id` with your account, the placeholder `region` with your desired region, the placeholder `log_group_name` with the log group to process, and the placeholder `filter_pattern` with your desired pattern.
+1. Create a subscription filter using the following command and replace the placeholder `account_id` with your account, the placeholder `region` with your desired region, the placeholder `log_group_name` with the log group to process, and the placeholder `filter_pattern` with your desired pattern.
 
     ```bash
     aws logs put-subscription-filter \
